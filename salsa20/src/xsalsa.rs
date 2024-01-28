@@ -10,6 +10,7 @@ use cipher::{
 
 #[cfg(feature = "zeroize")]
 use cipher::zeroize::ZeroizeOnDrop;
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use serde_derive::{Deserialize, Serialize};
 
 /// XSalsa20 is a Salsa20 variant with an extended 192-bit (24-byte) nonce.
@@ -24,8 +25,33 @@ pub type XSalsa12 = StreamCipherCoreWrapper<XSalsaCore<U6>>;
 pub type XSalsa8 = StreamCipherCoreWrapper<XSalsaCore<U4>>;
 
 /// The XSalsa core function.
-#[derive(Clone, Serialize, Deserialize)]
+#[derive(Clone)]
 pub struct XSalsaCore<R: Unsigned>(SalsaCore<R>);
+
+impl<R: Unsigned> Serialize for XSalsaCore<R>
+where
+    SalsaCore<R>: Serialize,
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        self.0.serialize(serializer)
+    }
+}
+
+impl<'de, R: Unsigned> Deserialize<'de> for XSalsaCore<R>
+where
+    SalsaCore<R>: Deserialize<'de>,
+{
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let inner = SalsaCore::<R>::deserialize(deserializer)?;
+        Ok(XSalsaCore(inner))
+    }
+}
 
 impl<R: Unsigned> KeySizeUser for XSalsaCore<R> {
     type KeySize = U32;

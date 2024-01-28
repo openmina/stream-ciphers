@@ -124,6 +124,7 @@ pub struct SalsaCore<R: Unsigned> {
     /// Internal state of the core function
     state: [u32; STATE_WORDS],
     /// Number of rounds to perform
+    #[serde(skip)]
     rounds: PhantomData<R>,
 }
 
