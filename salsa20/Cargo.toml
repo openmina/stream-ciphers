@@ -14,10 +14,14 @@ categories = ["cryptography", "no-std"]
 
 [dependencies]
 cipher = "0.4.2"
+serde = "1.0.195"
+serde_derive = "1.0.195"
 
 [dev-dependencies]
 cipher = { version = "0.4.2", features = ["dev"] }
 hex-literal = "0.3.3"
+serde = "1.0.195"
+serde_derive = "1.0.195"
 
 [features]
 std = ["cipher/std"]
