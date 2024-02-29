@@ -138,7 +138,6 @@ dependencies = [
  "cipher",
  "hex-literal",
  "serde",
- "serde_derive",
 ]
 
 [[package]]

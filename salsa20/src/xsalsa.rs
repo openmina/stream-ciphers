@@ -11,7 +11,6 @@ use cipher::{
 #[cfg(feature = "zeroize")]
 use cipher::zeroize::ZeroizeOnDrop;
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
-use serde_derive::{Deserialize, Serialize};
 
 /// XSalsa20 is a Salsa20 variant with an extended 192-bit (24-byte) nonce.
 ///

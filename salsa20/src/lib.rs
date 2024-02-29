@@ -81,8 +81,8 @@ use cipher::{
     Block, BlockSizeUser, IvSizeUser, KeyIvInit, KeySizeUser, ParBlocksSizeUser, StreamBackend,
     StreamCipherCore, StreamCipherCoreWrapper, StreamCipherSeekCore, StreamClosure,
 };
-use serde_derive::{Deserialize, Serialize};
 use core::marker::PhantomData;
+use serde::{Deserialize, Serialize};
 
 #[cfg(feature = "zeroize")]
 use cipher::zeroize::{Zeroize, ZeroizeOnDrop};
